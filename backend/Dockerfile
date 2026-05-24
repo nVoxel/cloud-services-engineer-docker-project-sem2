@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM golang:1.17-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
     go build -ldflags="-w -s" -o api ./cmd/api
 
 # Stage 2: Minimal runtime image
-FROM alpine:3.19
+FROM alpine:3.21
 
 RUN apk add --no-cache wget ca-certificates && \
     addgroup -S app && adduser -S app -G app
