@@ -33,7 +33,7 @@ jobs:
             tags: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
 
   run-with-docker-compose:
-    name: Push Docker image to DockerHub
+    name: Build and test via Docker Compose
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -58,7 +58,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Run Trivy on backend image
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/docker-project-backend:latest
           format: table
@@ -66,7 +66,7 @@ jobs:
           ignore-unfixed: true
           severity: CRITICAL,HIGH
       - name: Run Trivy on frontend image
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
           format: table
