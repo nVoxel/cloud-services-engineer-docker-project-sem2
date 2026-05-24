@@ -17,3 +17,9 @@ vendor/
 .vscode/
 .DS_Store
 *.tgz
+
+# Docker secrets (copy from .example and fill in real values)
+secrets/app_secret.txt
+
+# Docker environment
+.env
