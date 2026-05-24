@@ -1,0 +1,20 @@
+# Dev overrides: applied automatically when running `docker compose up`
+# For production, use: docker compose -f docker-compose.yml up
+
+services:
+  backend:
+    ports:
+      - "${BACKEND_PORT:-8081}:8081"
+    read_only: false
+    environment:
+      - LOG_LEVEL=debug
+
+  frontend:
+    build:
+      args:
+        # In dev, connect directly to backend (CORS is open in backend)
+        VUE_APP_API_URL: http://localhost:8081
+    read_only: false
+    depends_on:
+      backend:
+        condition: service_started
